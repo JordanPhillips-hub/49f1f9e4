@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Box, Container, Divider } from "@mui/material";
 import Header from "./components/header/Header";
 import "./App.css";
 
@@ -15,6 +15,8 @@ function App() {
         }}
       >
         <Header />
+
+        <Divider />
 
         <Box component="div" sx={{ p: 2 }}>
           Some activities should be here
