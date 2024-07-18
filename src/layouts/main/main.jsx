@@ -38,6 +38,7 @@ export default function Main() {
 
             <Button
               variant="text"
+              disableRipple
               sx={{
                 textTransform: "none",
                 "&:hover": {
