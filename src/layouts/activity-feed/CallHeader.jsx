@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import { Button, Typography, Stack } from "@mui/material";
 import { formatDate } from "../../utils/dateUtils";
-import { useCallContext } from "../../hooks/api.hooks";
+import { useCallContext, useNavigationContext } from "../../hooks/api.hooks";
 
 export default function CallHeader({ date, id, is_archived }) {
   const { updateCallArchive } = useCallContext();
+  const { currentView } = useNavigationContext();
 
   return (
     <Stack direction="row" justifyContent="space-between">
@@ -24,7 +25,7 @@ export default function CallHeader({ date, id, is_archived }) {
           },
         }}
       >
-        Archive
+        {currentView === "All Calls" ? "Archive" : "Unarchive"}
       </Button>
     </Stack>
   );
