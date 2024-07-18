@@ -1,9 +1,9 @@
 import { Box, Container, Divider } from "@mui/material";
 import Header from "./layouts/header/Header";
-import Main from "./layouts/main/main";
+import ActivityFeed from "./layouts/activity-feed/ActivityFeed";
 import "./App.css";
 
-function App() {
+export default function App() {
   return (
     <Box component="div" id="app">
       <Container
@@ -17,10 +17,8 @@ function App() {
       >
         <Header />
         <Divider />
-        <Main />
+        <ActivityFeed />
       </Container>
     </Box>
   );
 }
-
-export default App;
