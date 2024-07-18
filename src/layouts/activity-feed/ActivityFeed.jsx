@@ -18,7 +18,11 @@ export default function ActivityFeed() {
 
       {activities.map((activity) => (
         <Box key={activity.id}>
-          <CallHeader date={activity.created_at} />
+          <CallHeader
+            date={activity.created_at}
+            id={activity.id}
+            is_archived={activity.is_archived}
+          />
 
           <Card sx={{ mb: 2, p: 2, position: "relative" }}>
             <Stack direction="row" alignItems="center" spacing={2}>
