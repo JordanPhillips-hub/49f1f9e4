@@ -1,5 +1,5 @@
 import { Stack, Button, Box } from "@mui/material";
-import Logo from "../logo/Logo";
+import Logo from "../../components/logo/Logo";
 
 export default function Header() {
   return (
@@ -13,7 +13,7 @@ export default function Header() {
       <Logo />
 
       <Box>
-        <Button>Inbox</Button>
+        <Button>Archived Calls</Button>
         <Button>All Calls</Button>
       </Box>
     </Stack>
