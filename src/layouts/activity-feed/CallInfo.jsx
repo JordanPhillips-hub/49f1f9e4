@@ -22,8 +22,8 @@ export default function CallInfo({ callFrom, callTo, callVia, duration }) {
 }
 
 CallInfo.propTypes = {
-  callFrom: PropTypes.string.isRequired,
-  callTo: PropTypes.string.isRequired,
-  callVia: PropTypes.string.isRequired,
-  duration: PropTypes.string.isRequired,
+  callFrom: PropTypes.number.isRequired,
+  callTo: PropTypes.number.isRequired,
+  callVia: PropTypes.number.isRequired,
+  duration: PropTypes.number.isRequired,
 };
