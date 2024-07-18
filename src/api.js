@@ -17,6 +17,4 @@ const patchCallArchive = async (id, is_archived) => {
   return response.json();
 }
 
-export const Requests = {
-  patchCallArchive
-}
+export const Requests = { getActivities, patchCallArchive }
