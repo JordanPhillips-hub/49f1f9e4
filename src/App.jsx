@@ -1,5 +1,6 @@
 import { Box, Container, Divider } from "@mui/material";
-import Header from "./components/header/Header";
+import Header from "./layouts/header/Header";
+import Main from "./layouts/main/main";
 import "./App.css";
 
 function App() {
@@ -8,19 +9,15 @@ function App() {
       <Container
         sx={{
           backgroundColor: "common.white",
-          width: "376px",
+          width: "450px",
           height: "666px",
           borderRadius: "3px",
           boxShadow: "0 0 5px 0 rgba(0, 0, 0, .9)",
         }}
       >
         <Header />
-
         <Divider />
-
-        <Box component="div" sx={{ p: 2 }}>
-          Some activities should be here
-        </Box>
+        <Main />
       </Container>
     </Box>
   );
