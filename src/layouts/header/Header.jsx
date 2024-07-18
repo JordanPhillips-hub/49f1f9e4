@@ -13,8 +13,11 @@ export default function Header() {
       <Logo />
 
       <Box>
-        <Button>Archived Calls</Button>
-        <Button>All Calls</Button>
+        {["Archived Calls", "All Calls"].map((index) => (
+          <Button key={index} variant="text">
+            {index}
+          </Button>
+        ))}
       </Box>
     </Stack>
   );
