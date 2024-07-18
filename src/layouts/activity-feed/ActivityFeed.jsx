@@ -3,20 +3,42 @@ import CallIcon from "./CallIcon";
 import CallInfo from "./CallInfo";
 import TimeStamp from "./TimeStamp";
 import CallHeader from "./CallHeader";
-import { useCallContext } from "../../hooks/api.hooks";
+import { useCallContext, useNavigationContext } from "../../hooks/api.hooks";
 
 export default function ActivityFeed() {
-  const { activities, isLoading } = useCallContext();
+  const { activities, isLoading, updateAllCallsArchive } = useCallContext();
+  const { currentView } = useNavigationContext();
+
+  const filteredActivities = activities.filter((activity) => {
+    switch (currentView) {
+      case "Archived Calls":
+        return activity.is_archived;
+      case "All Calls":
+        return !activity.is_archived;
+      default:
+        return true;
+    }
+  });
 
   if (isLoading) return <Box>Loading activity feed...</Box>;
-
   return (
-    <Box component="main" sx={{ p: 2, overflowY: "scroll", maxHeight: "80%" }}>
-      <Button variant="outlined" fullWidth>
-        Archive all calls
+    <Box
+      component="main"
+      sx={{
+        p: 2,
+        overflowY: "scroll",
+        maxHeight: "80%",
+      }}
+    >
+      <Button variant="outlined" fullWidth onClick={updateAllCallsArchive}>
+        {`${
+          currentView === "All Calls"
+            ? "Archive All Calls"
+            : "Unarchive All Calls"
+        }`}
       </Button>
 
-      {activities.map((activity) => (
+      {filteredActivities.map((activity) => (
         <Box key={activity.id}>
           <CallHeader
             date={activity.created_at}
