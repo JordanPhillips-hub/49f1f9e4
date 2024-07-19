@@ -10,6 +10,7 @@ export const CallProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { currentView } = useNavigationContext();
+
   const fetchAndSetActivities = () =>
     Requests.getActivities().then(setActivities);
 
