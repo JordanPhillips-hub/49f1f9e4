@@ -1,4 +1,5 @@
-import { Card, Box, Button, Stack } from "@mui/material";
+import { Card, Box, Button, Stack, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import CallIcon from "./CallIcon";
 import CallInfo from "./CallInfo";
 import TimeStamp from "./TimeStamp";
@@ -10,17 +11,17 @@ export default function ActivityFeed() {
   const { currentView } = useNavigationContext();
 
   const filteredActivities = activities.filter((activity) => {
-    switch (currentView) {
-      case "Archived Calls":
-        return activity.is_archived;
-      case "All Calls":
-        return !activity.is_archived;
-      default:
-        return true;
-    }
+    return currentView === "All Calls"
+      ? !activity.is_archived
+      : currentView === "Archived Calls"
+      ? activity.is_archived
+      : true;
   });
 
-  if (isLoading) return <Box>Loading activity feed...</Box>;
+  const buttonLabel =
+    currentView === "All Calls" ? "Archive All Calls" : "Unarchive All Calls";
+
+  if (isLoading) return <Typography>Loading activity feed...</Typography>;
   return (
     <Box
       component="main"
@@ -31,37 +32,54 @@ export default function ActivityFeed() {
       }}
     >
       <Button variant="outlined" fullWidth onClick={updateAllCallsArchive}>
-        {`${
-          currentView === "All Calls"
-            ? "Archive All Calls"
-            : "Unarchive All Calls"
-        }`}
+        {buttonLabel}
       </Button>
 
-      {filteredActivities.map((activity) => (
-        <Box key={activity.id}>
-          <CallHeader
-            date={activity.created_at}
-            id={activity.id}
-            is_archived={activity.is_archived}
-          />
-
-          <Card sx={{ mb: 2, p: 2, position: "relative" }}>
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <CallIcon callType={activity.call_type} />
-
-              <CallInfo
-                callFrom={activity.from}
-                callTo={activity.to}
-                callVia={activity.via}
-                duration={activity.duration}
-              />
-
-              <TimeStamp time={activity.created_at} />
-            </Stack>
-          </Card>
-        </Box>
-      ))}
+      {filteredActivities.length === 0 ? (
+        <Typography sx={{ textAlign: "center", mt: 2 }}>
+          No calls to display
+        </Typography>
+      ) : (
+        filteredActivities.map(
+          ({
+            id,
+            created_at,
+            is_archived,
+            call_type,
+            from,
+            to,
+            via,
+            duration,
+          }) => (
+            <Box key={id} sx={{ mb: 2 }}>
+              <CallHeader date={created_at} id={id} is_archived={is_archived} />
+              <Card sx={{ p: 2, position: "relative" }}>
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <CallIcon callType={call_type} />
+                  <CallInfo
+                    callFrom={from}
+                    callTo={to}
+                    callVia={via}
+                    duration={duration}
+                  />
+                  <TimeStamp time={created_at} />
+                </Stack>
+              </Card>
+            </Box>
+          )
+        )
+      )}
     </Box>
   );
 }
+
+ActivityFeed.propTypes = {
+  id: PropTypes.string,
+  created_at: PropTypes.string,
+  is_archived: PropTypes.bool,
+  call_type: PropTypes.string,
+  from: PropTypes.number,
+  to: PropTypes.number,
+  via: PropTypes.number,
+  duration: PropTypes.number,
+};
