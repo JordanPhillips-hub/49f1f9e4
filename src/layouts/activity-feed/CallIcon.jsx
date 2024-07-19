@@ -1,18 +1,23 @@
 import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
 
+const callTypeIcons = {
+  missed: "uil:missed-call",
+  answered: "mdi:call-outline",
+  voicemail: "ic:sharp-voicemail",
+};
+
+const callTypeColors = {
+  missed: "red",
+  answered: "green",
+  voicemail: "inherit",
+};
 export default function CallIcon({ callType }) {
   return (
     <Icon
       width={25}
-      icon={
-        callType === "missed"
-          ? "uil:missed-call"
-          : callType === "answered"
-          ? "mdi:call-outline"
-          : "ic:sharp-voicemail"
-      }
-      color={callType === "missed" ? "red" : "green"}
+      icon={callTypeIcons[callType]}
+      color={callTypeColors[callType]}
     />
   );
 }
