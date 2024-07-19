@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
-import { Typography, Stack } from "@mui/material";
-
-import { formatDuration } from "../../utils/generalUtils";
 import { Icon } from "@iconify/react";
+import { Typography, Stack, Divider } from "@mui/material";
+import { formatDuration } from "../../utils/generalUtils";
 
 export default function CallInfo({ callFrom, callTo, callVia, duration }) {
   return (
@@ -13,10 +12,14 @@ export default function CallInfo({ callFrom, callTo, callVia, duration }) {
         <Typography variant="body2">To: {callTo}</Typography>
       </Stack>
 
-      <Typography variant="body2">Via: {callVia}</Typography>
-      <Typography variant="body2">
-        Duration: {formatDuration(duration)}
-      </Typography>
+      <Divider flexItem sx={{ borderColor: "lightgray", mb: 1 }} />
+
+      <Stack>
+        <Typography variant="body2">Via: {callVia}</Typography>
+        <Typography variant="body2">
+          Duration: {formatDuration(duration)}
+        </Typography>
+      </Stack>
     </Stack>
   );
 }
