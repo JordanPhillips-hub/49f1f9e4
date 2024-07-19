@@ -1,11 +1,16 @@
 import PropTypes from "prop-types";
-import { Button, Typography, Stack } from "@mui/material";
+import { Typography, Stack, IconButton } from "@mui/material";
 import { formatDate } from "../../utils/dateUtils";
-import { useCallContext, useNavigationContext } from "../../hooks/api.hooks";
+import { useCallContext } from "../../hooks/api.hooks";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import UnarchiveOutlinedIcon from "@mui/icons-material/UnarchiveOutlined";
 
 export default function CallHeader({ date, id, is_archived }) {
   const { updateCallArchive } = useCallContext();
-  const { currentView } = useNavigationContext();
+
+  const handleArchiveToggle = () => {
+    updateCallArchive(id, !is_archived);
+  };
 
   return (
     <Stack direction="row" justifyContent="space-between">
@@ -13,20 +18,20 @@ export default function CallHeader({ date, id, is_archived }) {
         {formatDate(date)}
       </Typography>
 
-      <Button
-        variant="text"
-        disableRipple
-        onClick={() => updateCallArchive(id, !is_archived)}
+      <IconButton
+        size="small"
+        onClick={handleArchiveToggle}
         sx={{
-          textTransform: "none",
           "&:hover": {
-            bgcolor: "transparent",
-            textDecoration: "underline",
+            backgroundColor: "transparent",
+            "& .MuiSvgIcon-root": {
+              color: "red",
+            },
           },
         }}
       >
-        {currentView === "All Calls" ? "Archive" : "Unarchive"}
-      </Button>
+        {is_archived ? <UnarchiveOutlinedIcon /> : <ArchiveOutlinedIcon />}
+      </IconButton>
     </Stack>
   );
 }
