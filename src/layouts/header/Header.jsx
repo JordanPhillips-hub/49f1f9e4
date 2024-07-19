@@ -1,9 +1,10 @@
-import { Stack, Button, Box } from "@mui/material";
+import { Stack, Button, ButtonGroup } from "@mui/material";
 import Logo from "../../components/logo/Logo";
 import { useNavigationContext } from "../../hooks/api.hooks";
 
 export default function Header() {
   const { currentView, handleCurrentView } = useNavigationContext();
+  const viewOptions = ["Archived Calls", "All Calls"];
 
   return (
     <Stack
@@ -15,20 +16,17 @@ export default function Header() {
     >
       <Logo />
 
-      <Box>
-        {["Archived Calls", "All Calls"].map((label) => (
+      <ButtonGroup size="small" color="primary">
+        {viewOptions.map((label) => (
           <Button
             key={label}
-            size="small"
-            color={currentView === label ? "secondary" : "primary"}
-            variant={currentView === label ? "outlined" : "text"}
+            variant={currentView === label ? "contained" : "outlined"}
             onClick={() => handleCurrentView(label)}
-            sx={{ mr: 1 }}
           >
             {label}
           </Button>
         ))}
-      </Box>
+      </ButtonGroup>
     </Stack>
   );
 }
