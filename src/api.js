@@ -14,6 +14,7 @@ const patchCallArchive = async (id, is_archived) => {
   });
 
   if (!response.ok) throw new Error('Failed to update');
+
   return response.json();
 }
 
